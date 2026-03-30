@@ -21,7 +21,7 @@ public class NextDnsRateLimitedApiProcessor {
 
     @SneakyThrows
     public <D, R extends NextDnsResponse<?>> void callApi(List<D> requestList, Function<D, R> request) {
-        int waitSeconds = 1;
+        int waitSeconds = 60;
         Queue<D> requestQueue = new ArrayDeque<>(requestList);
         int successCounter = 0;
         int waveCounter = 0;
@@ -39,7 +39,7 @@ public class NextDnsRateLimitedApiProcessor {
                 if (e.getCode() == 524 || e.getCode() == 429) {
                     requestQueue.add(requestDto);
                     Log.common("Sending speed: %s requests per second"
-                            .formatted((double) waveCounter / 1));
+                            .formatted((double) waveCounter / 60));
                     Log.common("Code %s. Api rate limit has reached".formatted(e.getCode()));
                     runResetWaitTimer(waitSeconds);
                     Log.io("Continue...");
