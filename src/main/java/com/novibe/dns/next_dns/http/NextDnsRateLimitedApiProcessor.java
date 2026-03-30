@@ -21,7 +21,7 @@ public class NextDnsRateLimitedApiProcessor {
 
     @SneakyThrows
     public <D, R extends NextDnsResponse<?>> void callApi(List<D> requestList, Function<D, R> request) {
-        int waitSeconds = 60;
+        int waitSeconds = 1;
         Queue<D> requestQueue = new ArrayDeque<>(requestList);
         int successCounter = 0;
         int waveCounter = 0;
