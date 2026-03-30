@@ -39,7 +39,7 @@ public class NextDnsRateLimitedApiProcessor {
                 if (e.getCode() == 524 || e.getCode() == 429) {
                     requestQueue.add(requestDto);
                     Log.common("Sending speed: %s requests per second"
-                            .formatted((double) waveCounter / 60));
+                            .formatted((double) waveCounter / 1));
                     Log.common("Code %s. Api rate limit has reached".formatted(e.getCode()));
                     runResetWaitTimer(waitSeconds);
                     Log.io("Continue...");
